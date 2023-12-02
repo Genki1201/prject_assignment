@@ -85,7 +85,7 @@ def validation(model, device, data_loader, loss_def):
 #実際の学習
 
 #カスタムデータセットのインポート
-from dataset1 import CategoryDataset, transformer, aug_transformer
+from dataset import CategoryDataset, transformer, aug_transformer
 
 category_dataset = CategoryDataset(csv_path="D:\\project_assignment\\deep_fashion_label\\final_label\\fabric_shuffled_label.csv", 
                            transform=transformer,
