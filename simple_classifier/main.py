@@ -29,7 +29,6 @@ def train(model, device, data_loader, optim, loss_def):
         output = model(input) #1イテレータの出力
 
         #損失関数の計算（lossは1イテレータの平均）
-        #print(label.size())
         loss = loss_def(output, label)
         total_loss += float(loss) * input.size(0)
 

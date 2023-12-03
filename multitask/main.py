@@ -32,7 +32,6 @@ def train(model, device, data_loader, optim, loss_def):
         category_output, fabric_output = model(input) #1イテレータの出力
 
         #損失関数の計算（lossは1イテレータの平均）
-        print(category_label)
         category_loss = loss_def(category_output, category_label)
         fabric_loss = loss_def(fabric_output, fabric_label)
         category_total_loss += float(category_loss) * input.size(0)
@@ -41,7 +40,7 @@ def train(model, device, data_loader, optim, loss_def):
         #勾配の初期化
         optim.zero_grad()
         #勾配計算
-        category_loss.backward()
+        category_loss.backward(retain_graph=True)
         fabric_loss.backward()
         #パラメータの更新
         optim.step()
