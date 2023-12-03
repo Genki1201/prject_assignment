@@ -29,6 +29,7 @@ def train(model, device, data_loader, optim, loss_def):
         output = model(input) #1イテレータの出力
 
         #損失関数の計算（lossは1イテレータの平均）
+        #print(label.size())
         loss = loss_def(output, label)
         total_loss += float(loss) * input.size(0)
 
@@ -103,7 +104,7 @@ print("train size is ", len(train_dataset))
 
 #データローダの作成
 train_dl = DataLoader(dataset=train_dataset,
-                    batch_size=64,
+                    batch_size=128,
                     shuffle=True
                     )
 

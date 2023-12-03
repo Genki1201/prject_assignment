@@ -27,8 +27,10 @@ class CategoryDataset(Dataset):
             image = self.transform(image)
 
             #idxの正解ラベル
-            nd_labels = self.data.iloc[idx, 1]
-            labels = torch.tensor(nd_labels, dtype=torch.int64)
+            category_label = self.data.iloc[idx, 1]
+            category_label = torch.tensor(category_label, dtype=torch.int64)
+            fabric_label = self.data.iloc[idx, 2]
+            fabric_label = torch.tensor(fabric_label, dtype=torch.int64)
 
         else:
             #オーグメンテーション
@@ -39,10 +41,12 @@ class CategoryDataset(Dataset):
 
             image = self.aug_transform(image)
 
-            nd_labels = self.data.iloc[idx, 1]
-            labels = torch.tensor(nd_labels, dtype=torch.int64)
-        
-        return image, labels
+            category_label = self.data.iloc[idx, 1]
+            category_label = torch.tensor(category_label, dtype=torch.int64)
+            fabric_label = self.data.iloc[idx, 2]
+            fabric_label = torch.tensor(fabric_label, dtype=torch.int64)
+
+        return image, category_label, fabric_label
     
 #データの前処理の関数
 def transformer(img):
@@ -90,13 +94,14 @@ def scale_transformer(img):
 
 
 if __name__== "__main__":
-    custom_dataset = CategoryDataset(csv_path="D:\\project_assignment\\label\\category_shuffled_label.csv", 
+    custom_dataset = CategoryDataset(csv_path="D:\\project_assignment\\deep_fashion_label\\final_label\\multitask_train.csv", 
                            transform=transformer,
                            aug_transform=aug_transformer)
 
-    img, label = custom_dataset[20000]
+    img, category_label, fabric_label = custom_dataset[20000]
     print(img.size())
-    print(label)  
+    print("category", category_label)
+    print("fabric", fabric_label)  
     print(len(custom_dataset))
 
 

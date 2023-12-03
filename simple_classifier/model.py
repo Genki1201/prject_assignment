@@ -31,7 +31,7 @@ CateModel.classifier = nn.Sequential(
     nn.Hardswish(),
     nn.Dropout(p=0.2, inplace=True),
     nn.Linear(in_features=1280, out_features=12, bias=True),
-    nn.LogSoftmax(dim=1)
+    nn.Softmax(dim=1)
     )
 """
 #efficientnet
@@ -82,5 +82,5 @@ elif i == 1:
 
 
 #誤差関数を定義
-criterion = nn.NLLLoss()
+criterion = nn.CrossEntropyLoss()
 
