@@ -40,7 +40,7 @@ def train(model, device, data_loader, optim, loss_def):
         #勾配の初期化
         optim.zero_grad()
         #勾配計算
-        category_loss.backward(retain_graph=True)
+        category_loss.backward(retain_graph=True) #計算グラフを保存
         fabric_loss.backward()
         #パラメータの更新
         optim.step()
@@ -105,15 +105,15 @@ def validation(model, device, data_loader, loss_def):
 #実際の学習
 
 #カスタムデータセットのインポート
-from dataset import CategoryDataset, transformer, aug_transformer
+from dataset import CategoryDataset, transformer, rote_transformer
 
 train_dataset = CategoryDataset(csv_path="D:\\project_assignment\\deep_fashion_label\\final_label\\multitask_train.csv", 
                            transform=transformer,
-                           aug_transform=aug_transformer)
+                           aug_transform= rote_transformer)
 
 val_dataset = CategoryDataset(csv_path="D:\\project_assignment\\deep_fashion_label\\final_label\\multitask_val.csv",
                               transform=transformer,
-                              aug_transform=aug_transformer)
+                              aug_transform= rote_transformer)
 
 print(len(train_dataset))
 
