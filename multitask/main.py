@@ -51,7 +51,7 @@ def train(model, device, data_loader, optim, loss_def):
         fabric_pred_label = fabric_output.argmax(dim=1)
         fabric_total_correct += int((fabric_pred_label == fabric_label).sum())
 
-        print(iter)
+        #print(iter)
         iter += 1
 
     #損失関数と正解率の計算
@@ -164,15 +164,15 @@ for epoch in range(num_epochs):
     print(f"epoch {epoch + 1} ")
     print("<category>  ")
     print(
-            f"[train] loss: {category_train_loss:.6f}, accuracy: {category_train_accuracy:.0%} |"
+            f"[train] loss: {category_train_loss:.6f}, accuracy: {category_train_accuracy:.0%}  |  "
             f"[validation] loss: {category_val_loss:.6f}, accuracy: {category_val_accuracy:.0%}"
         )
     print("<fabric>  ")
     print(
-            f"[train] loss: {fabric_train_loss:.6f}, accuracy: {fabric_train_accuracy:.0%} |"
+            f"[train] loss: {fabric_train_loss:.6f}, accuracy: {fabric_train_accuracy:.0%}  |  "
             f"[validation] loss: {fabric_val_loss:.6f}, accuracy: {fabric_val_accuracy:.0%}"
         )
-    print("------------------------------------------------")
+    print("--------------------------------------------------------------------------------------")
 
 #モデルの保存
 model_path = 'D:\\project_assignment\\dee_fashion_model\\simple_category_model.pth'
