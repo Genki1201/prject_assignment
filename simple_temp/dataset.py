@@ -8,7 +8,7 @@ import random
 
 #カスタムデータセットを作る
 class MyDataset(Dataset):
-    def __init__(self, csv_path, transform, aug_transform, temp = "min"): #Noneはtransformを行わないときに備えている
+    def __init__(self, csv_path, transform, aug_transform, temp="max"): #Noneはtransformを行わないときに備えている
         self.data = pd.read_csv(csv_path)
         self.data_size = len(self.data.index) #ファイルの長さ
         self.transform = transform
@@ -29,7 +29,7 @@ class MyDataset(Dataset):
             image = self.transform(img)
 
             #idxの正解ラベル
-            if self.temp == "min":
+            if "min"==self.temp:
                 label = self.data.iloc[idx, 1]
             else:
                 label = self.data.iloc[idx, 2]
@@ -44,7 +44,6 @@ class MyDataset(Dataset):
             img = img.convert('RGB')
 
             image = self.aug_transform(img)
-
             if self.temp == "min":
                 label = self.data.iloc[idx, 1]
             else:

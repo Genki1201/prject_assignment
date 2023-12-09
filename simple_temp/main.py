@@ -76,19 +76,19 @@ from dataset import MyDataset, transformer, rote_transformer, scale_transformer
 train_dataset = MyDataset(csv_path="D:\\project_assignment\\temp_label\\temp_label_small_train.csv", 
                            transform=transformer,
                            aug_transform=scale_transformer,
-                           temp=min)
+                           temp="max")
 
 val_dataset = MyDataset(csv_path="D:\\project_assignment\\temp_label\\temp_label_small_val.csv", 
                            transform=transformer,
                            aug_transform=scale_transformer,
-                           temp=min)
+                           temp="max")
 
 print("train size is ", len(train_dataset))
 
 #データローダの作成
 train_dl = DataLoader(dataset=train_dataset,
                     batch_size=128,
-                    shuffle=True
+                    shuffle=False
                     )
 
 print("validation size is ", len(val_dataset))
@@ -103,8 +103,8 @@ print("criterion is: ", criterion)
 #モデルをGPUに転送
 TempModel = TempModel.to(device)
 
-num_epochs = 50
-
+num_epochs = 14
+print("simple max")
 history = defaultdict(list)
 for epoch in range(num_epochs):
     #学習
@@ -128,5 +128,5 @@ for epoch in range(num_epochs):
     print('--------------------------------------------------------------------')
 
 #モデルの保存
-model_path = 'D:\\project_assignment\\dee_fashion_model\\simple_temp_model.pth'
+model_path = 'D:\\project_assignment\\simple_temp_model\\max_model.pth'
 torch.save(TempModel.to('cpu'), model_path)
