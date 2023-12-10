@@ -6,12 +6,14 @@ import numpy as np
 max_model_path = "D:\project_assignment\simple_temp_model\max_model.pth"
 
 # モデルを読み込む
-max_model = torch.load(max_model_path)
+max_model = torch.jit.load(max_model_path, map_location='cpu')
+max_model.eval()
 
 min_model_path = "D:\project_assignment\simple_temp_model\min_model.pth"
-min_model = torch.load(min_model_path)
+min_model = torch.jit.load(min_model_path, map_location='cpu')
+min_model.eval()
 
-img_path= 'D:/project_assignment/temp_image/img_small/dress_lace/49.jpg'
+img_path= "D:\\project_assignment\\temp_label\\a.jpg"
 
 img = Image.open(img_path)
 img = img.convert('RGB')

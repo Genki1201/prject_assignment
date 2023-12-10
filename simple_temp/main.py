@@ -76,12 +76,12 @@ from dataset import MyDataset, transformer, rote_transformer, scale_transformer
 train_dataset = MyDataset(csv_path="D:\\project_assignment\\temp_label\\temp_label_small_train.csv", 
                            transform=transformer,
                            aug_transform=scale_transformer,
-                           temp="max")
+                           temp="min")
 
 val_dataset = MyDataset(csv_path="D:\\project_assignment\\temp_label\\temp_label_small_val.csv", 
                            transform=transformer,
                            aug_transform=scale_transformer,
-                           temp="max")
+                           temp="min")
 
 print("train size is ", len(train_dataset))
 
@@ -103,8 +103,8 @@ print("criterion is: ", criterion)
 #モデルをGPUに転送
 TempModel = TempModel.to(device)
 
-num_epochs = 14
-print("simple max")
+num_epochs = 10
+print("simple min")
 history = defaultdict(list)
 for epoch in range(num_epochs):
     #学習
@@ -128,5 +128,6 @@ for epoch in range(num_epochs):
     print('--------------------------------------------------------------------')
 
 #モデルの保存
-model_path = 'D:\\project_assignment\\simple_temp_model\\max_model.pth'
-torch.save(TempModel.to('cpu'), model_path)
+model_path = 'D:\\project_assignment\\simple_temp_model\\min_model.pth'
+model_scripted = torch.jit.script(TempModel)
+model_scripted.save(model_path)

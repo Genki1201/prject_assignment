@@ -175,5 +175,7 @@ for epoch in range(num_epochs):
     print("--------------------------------------------------------------------------------------")
 
 #モデルの保存
-model_path = 'D:\\project_assignment\\deep_fashion_model\\multitask_model.pth'
-torch.save(multiTaskModel.to('cpu'), model_path)
+model_path = 'D:\\project_assignment\\deep_fashion_model\\multitask.pth'
+#torch script形式で保存
+model_scripted = torch.jit.script(multiTaskModel)
+model_scripted.save(model_path)

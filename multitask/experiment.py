@@ -3,11 +3,12 @@ from PIL import Image
 import numpy as np
 
 # 保存したモデルのパス
-multitask_model_path = "D:\project_assignment\deep_fashion_model\multitask_model.pth"
+multitask_model_path = "D:\project_assignment\deep_fashion_model\multitask.pth"
 
 # モデルを読み込む
-multitask_model = torch.load(multitask_model_path)
-
+mutlitask_model_script = torch.jit.load(multitask_model_path, map_location='cpu')
+#モデルを評価モードに
+mutlitask_model_script.eval()
 img_path= "D:/project_assignment/deep_fashion_image/img_highres/img/Pleated_Floral_Chiffon_Dress/img_00000011.jpg"
 
 img = Image.open(img_path)
@@ -24,7 +25,7 @@ img = torch.tensor(img)
 img = torch.permute(img, (2, 0,1))
 input = img.unsqueeze(0) #バッチサイズが1のバッチを追加
 
-category_output, fabric_output = multitask_model(input)
+category_output, fabric_output = mutlitask_model_script(input)
 print(category_output, fabric_output)
 
 category_classes = torch.argmax(category_output, dim=1)
