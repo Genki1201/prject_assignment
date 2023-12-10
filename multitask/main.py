@@ -144,7 +144,7 @@ lr = 0.001
 optimizer = optim.Adam(multiTaskModel.parameters(), lr=lr)
 print("lr: ", lr)
 
-num_epochs = 8
+num_epochs = 2
 
 history = defaultdict(list)
 for epoch in range(num_epochs):
@@ -175,5 +175,5 @@ for epoch in range(num_epochs):
     print("--------------------------------------------------------------------------------------")
 
 #モデルの保存
-model_path = 'D:\\project_assignment\\dee_fashion_model\\simple_category_model.pth'
-torch.save(multiTaskModel, model_path)
+model_path = 'D:\\project_assignment\\deep_fashion_model\\multitask_model.pth'
+torch.save(multiTaskModel.to('cpu'), model_path)
