@@ -72,16 +72,18 @@ def validation(model, device, data_loader, loss_def):
 #カスタムデータセットのインポート
 from dataset import MyDataset, transformer, rote_transformer, scale_transformer
 
+tem = "max"
+print("simple ", tem)
 #最低気温
 train_dataset = MyDataset(csv_path="D:\\project_assignment\\temp_label\\temp_label_small_train.csv", 
                            transform=transformer,
-                           aug_transform=scale_transformer,
-                           temp="min")
+                           aug_transform=rote_transformer,
+                           temp=tem)
 
 val_dataset = MyDataset(csv_path="D:\\project_assignment\\temp_label\\temp_label_small_val.csv", 
                            transform=transformer,
-                           aug_transform=scale_transformer,
-                           temp="min")
+                           aug_transform=rote_transformer,
+                           temp=tem)
 
 print("train size is ", len(train_dataset))
 
@@ -104,7 +106,8 @@ print("criterion is: ", criterion)
 TempModel = TempModel.to(device)
 
 num_epochs = 10
-print("simple min")
+
+val_result = []
 history = defaultdict(list)
 for epoch in range(num_epochs):
     #学習
@@ -121,13 +124,15 @@ for epoch in range(num_epochs):
                                  val_dl,
                                  criterion)
     history["valid_loss"].append(validation_loss)
+    val_result.append(validation_loss)
 
     print(f"epoch {epoch + 1} ")
     print(f"[train] loss: {train_loss:.6f}")
     print(f"[validation] loss: {validation_loss:.6f}")
     print('--------------------------------------------------------------------')
 
+print("minimum val is :", min(val_result))
 #モデルの保存
-model_path = 'D:\\project_assignment\\simple_temp_model\\min_model.pth'
+model_path = 'D:\\project_assignment\\simple_temp_model\\min_model_half.pth'
 model_scripted = torch.jit.script(TempModel)
 model_scripted.save(model_path)
