@@ -48,6 +48,7 @@ class FineTuningModel(nn.Module):
 
         return output
 
+"""
 #これ以降はmainに書く
 
 model = FineTuningModel()
@@ -57,7 +58,6 @@ for name, param in model.named_parameters():
     print(name)
     num+=1
 print("layer is: ", num)
-
 
 #再学習させたい範囲を指定
 learning_range = 8
@@ -79,3 +79,4 @@ for name, param in model.named_parameters():
 #最適化アルゴリズムを定義（lrは学習率）
 optimizer = optim.Adam(learning_params)
 
+"""
