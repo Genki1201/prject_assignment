@@ -8,9 +8,13 @@ import random
 
 #カスタムデータセットを作る
 class MyDataset(Dataset):
-    def __init__(self, csv_path, transform, aug_transform, temp="max"): #Noneはtransformを行わないときに備えている
-        self.data = pd.read_csv(csv_path)
-        self.data_size = len(self.data.index) #ファイルの長さ
+    def __init__(self, csv_path, transform, aug_transform, temp): #Noneはtransformを行わないときに備えている
+        all_data = pd.read_csv(csv_path)
+        print("1/4 detaset")
+        dataset_size = len(all_data.index) #ファイルの長さ
+        self.data_size = dataset_size // 4
+        self.data = all_data.head(self.data_size)
+
         self.transform = transform
         self.aug_transform = aug_transform
         self.temp = temp

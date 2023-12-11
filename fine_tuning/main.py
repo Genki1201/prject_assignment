@@ -124,7 +124,7 @@ for name, param in fineTuningModel.named_parameters():
     if i in range(num-learning_range, num):
         param.requires_grad=True
         learning_params.append(param)
-        print(name)
+        #print(name)
     else:
         param.requires_grad=False
     i+=1
@@ -159,6 +159,6 @@ for epoch in range(num_epochs):
     print(f"[validation] loss: {validation_loss:.6f}")
 
 #モデルの保存
-model_path = 'D:\\project_assignment\\finetuning_model\\min_model.pth'
+model_path = 'D:\\project_assignment\\finetuning_model\\max_model.pth'
 model_scripted = torch.jit.script(fineTuningModel)
-model_scripted.save(model_path)
+#model_scripted.save(model_path)

@@ -7,7 +7,7 @@ class FineTuningModel(nn.Module):
     def __init__(self):
         super(FineTuningModel, self).__init__()
         #simple_tempの学習済みモデルを読み込む
-        simple_temp_path = "D:\\project_assignment\\simple_temp_model\\max_model.pth"
+        simple_temp_path = "D:\\project_assignment\\simple_temp_model\\max_model_quater.pth"
         simple_temp_model = torch.jit.load(simple_temp_path, map_location='cpu')
         #classifier層を削除
         self.simple_temp_features = nn.Sequential(*list(simple_temp_model.children())[:-1])
