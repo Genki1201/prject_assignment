@@ -24,7 +24,7 @@ def train(model, device, data_loader, optim, loss_def):
     for input, label in data_loader: #1イテレータ分
         input = input.to(device)
         label = label.to(device)
-        label = label.unsqueeze(1) #sizeを合わせる
+        label = label.unsqueeze(1) #crossentropylossを使用するためsizeを合わせる
 
         output = model(input) #1イテレータの出力
         #損失関数の計算（lossは1イテレータの平均）
